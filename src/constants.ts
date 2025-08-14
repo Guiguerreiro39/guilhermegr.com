@@ -1,0 +1,152 @@
+export const GITHUB_URL = "https://github.com/Guiguerreiro39";
+export const LINKEDIN_URL = "https://www.linkedin.com/in/guilhermegr39/";
+
+export const TIMELINE_DATA = [
+  {
+    id: "text01",
+    date: "Sept 2012",
+    title: "Exchange Student in Japan",
+    description: "JLPT Japanese N3",
+    x: 300,
+    y: 148,
+    dx: 356,
+  },
+  {
+    id: "text02",
+    date: "Sept 2014",
+    title: "Software Engineer Student",
+    description: "Bachelor's degree in Computer Science",
+    x: 420,
+    y: 362,
+    dx: 429,
+  },
+  {
+    id: "text03",
+    date: "Aug 2018",
+    title: "Erasmus Student in Denmark",
+    description: "Software Security, Formal Methods",
+    x: 405,
+    y: 552,
+    dx: 430,
+  },
+  {
+    id: "text04",
+    date: "Jun 2019",
+    title: "Security Software Developer",
+    description: "Bosch Portugal",
+    x: 210,
+    y: 735,
+    dx: 278,
+  },
+  {
+    id: "text05",
+    date: "Jun 2020",
+    title: "Full Stack Engineer",
+    description: "Bosch Portugal",
+    x: 385,
+    y: 960,
+    dx: 385,
+  },
+  {
+    id: "text06",
+    date: "Sept 2022",
+    title: "Frontend Engineer",
+    description: "Papaya, Remote EU",
+    x: 255,
+    y: 1165,
+    dx: 277,
+  },
+  {
+    id: "text07",
+    date: "Jul 2024",
+    title: "Software Engineer (Web)",
+    description: "Revolut, Portugal",
+    x: 210,
+    y: 1355,
+    dx: 260,
+  },
+];
+
+export const PROJECTS_DATA = [
+  {
+    title: "Keylogger",
+    description:
+      "A bat keylogger script to log keystrokes, record audio and take screenshots.",
+    button: "Explore Component",
+    src: "/projects/keylogger.jpg",
+    github: "https://github.com/Guiguerreiro39/keylogger",
+  },
+  {
+    title: "Auction House",
+    description: "A CLI auction house with TCP connection.",
+    button: "Explore Component",
+    src: "/projects/auction.jpg",
+    github: "https://github.com/Guiguerreiro39/golang-tcp-auction",
+  },
+  {
+    title: "Password Manager",
+    description: "A password manager CLI to store and manage your passwords.",
+    button: "Explore Component",
+    src: "/projects/password-manager.webp",
+    github: "https://github.com/Guiguerreiro39/PasswordManager",
+  },
+  {
+    title: "Old Portfolio",
+    description: "My old portfolio made using Gatsby.",
+    button: "Explore Component",
+    src: "/projects/old-portfolio.png",
+    github: "https://github.com/Guiguerreiro39/gatsby-portfolio",
+    video: "/projects/videos/old-portfolio.mov",
+  },
+  {
+    title: "Pokemon Guesser",
+    description: "A Pokemon game to guess the Pokemon based on its image.",
+    button: "Explore Component",
+    src: "/projects/pokemon-guesser.png",
+    github: "https://github.com/Guiguerreiro39/pokemon-guesser",
+    video: "/projects/videos/pokemon-guesser.mov",
+  },
+  {
+    title: "Jotion",
+    description: "A Notion clone with a built in Excalidraw feature.",
+    button: "Explore Component",
+    src: "/projects/jotion.png",
+    github: "https://github.com/Guiguerreiro39/jotion",
+    video: "/projects/videos/jotion.mov",
+  },
+  {
+    title: "Fresh blog",
+    description: "A blog made using Fresh framework and Deno.",
+    button: "Explore Component",
+    src: "/projects/fresh-blog.png",
+    github: "https://github.com/Guiguerreiro39/fresh-blog",
+    video: "/projects/videos/fresh-blog.mov",
+  },
+  {
+    title: "Cipher Toolbox",
+    description:
+      "Professional-grade online encryption, encoding and hashing tools",
+    button: "Explore Component",
+    video: "/projects/videos/cipher-toolbox.mov",
+    src: "/projects/cipher-toolbox.png",
+    github: "https://github.com/Guiguerreiro39/cipher-toolbox",
+    link: "https://ciphertoolbox.com",
+  },
+  {
+    title: "Postcraft",
+    description:
+      "A SaaS application to create, manage and generate posts from videos.",
+    button: "Explore Component",
+    src: "/projects/postcraft.png",
+    github: "https://github.com/Guiguerreiro39/postcraft",
+    video: "/projects/videos/postcraft.mov",
+  },
+  {
+    title: "Cryptocurrency AI Agent",
+    description:
+      "An AI agent to trade cryptocurrencies based on market analysis.",
+    button: "Explore Component",
+    src: "/projects/crypto-agent.png",
+    github: "https://github.com/Guiguerreiro39/olympus-agents",
+  },
+];
