@@ -1,9 +1,8 @@
 import { useTheme } from "@/context/theme";
-import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { SplitText } from "gsap/all";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(SplitText);
@@ -24,7 +23,7 @@ export const LanguagesHeader = () => {
 
   const values = useMemo(() => ANIMATION_VALUES[slowTheme], [slowTheme]);
 
-  useGSAP(() => {
+  useEffect(() => {
     const ctx = gsap.context(() => {
       const textAnimation = gsap.timeline({
         ease: "power1.inOut",
@@ -66,7 +65,7 @@ export const LanguagesHeader = () => {
 
   return (
     <h2
-      className="text-background font-headers japanese:text-4xl japanese:md:text-5xl relative text-6xl uppercase"
+      className="text-background font-headers japanese:leading-6 japanese:sm:leading-11 relative text-3xl uppercase sm:text-4xl md:text-5xl md:leading-14"
       id="languages-header"
     >
       <span className="japanese:md:pl-26 japanese:pl-20">My</span>

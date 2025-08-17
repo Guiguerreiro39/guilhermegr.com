@@ -28,33 +28,69 @@ export const TimelineContent = () => {
       .to(".ball07, .text06", {}, 0.688)
       .to(".ball08, .text07", {}, 0.804);
 
-    const main = gsap
-      .timeline({
-        defaults: { duration: 1 },
-        scrollTrigger: {
-          trigger: "#timeline-stage",
-          scrub: true,
-          start: "top 105%",
-          end: "bottom center",
-        },
-      })
-      .to(".ball01", { duration: 0.05, autoAlpha: 1 })
-      .from(".theLine", { drawSVG: 0 }, 0)
-      .to(
-        ".ball01",
-        {
-          motionPath: {
-            path: ".theLine",
-            align: ".theLine",
-            alignOrigin: [0.5, 0.5],
+    gsap.matchMedia().add("(width >= 48rem)", () => {
+      const main = gsap
+        .timeline({
+          defaults: { duration: 1 },
+          scrollTrigger: {
+            trigger: "#timeline-stage",
+            scrub: true,
+            start: "top 105%",
+            end: "bottom 40%",
           },
-        },
-        0,
-      )
-      .add(pulses, 0);
+        })
+        .to(".ball01", { duration: 0.05, autoAlpha: 1 })
+        .from(".theLine", { drawSVG: 0 }, 0)
+        .to(
+          ".ball01",
+          {
+            motionPath: {
+              path: ".theLine",
+              align: ".theLine",
+              alignOrigin: [0.5, 0.5],
+            },
+          },
+          0,
+        )
+        .add(pulses, 0);
+
+      return () => {
+        main.kill();
+      };
+    });
+
+    gsap.matchMedia().add("(width < 48rem)", () => {
+      const main = gsap
+        .timeline({
+          defaults: { duration: 1 },
+          scrollTrigger: {
+            trigger: "#timeline-stage",
+            scrub: true,
+            start: "top 90%",
+            end: "bottom center",
+          },
+        })
+        .to(".ball01", { duration: 0.05, autoAlpha: 1 })
+        .from(".theLine", { drawSVG: 0 }, 0)
+        .to(
+          ".ball01",
+          {
+            motionPath: {
+              path: ".theLine",
+              align: ".theLine",
+              alignOrigin: [0.5, 0.5],
+            },
+          },
+          0,
+        )
+        .add(pulses, 0);
+
+      return () => {
+        main.kill();
+      };
+    });
 
     return () => {
-      main.kill();
       pulses.kill();
     };
   });
@@ -76,16 +112,23 @@ export const TimelineContent = () => {
       {TIMELINE_DATA.map((item, index) => (
         <Fragment key={item.title}>
           <text
-            className={cn("text-[12px]", item.id)}
+            className={cn("font-secondary text-[12px] uppercase", item.id)}
             x="60"
             y={index * 200 + 180}
           >
             {item.date}
           </text>
-          <text className={cn("text-[8px]", item.id)} x={item.x} y={item.y}>
+          <text
+            className={cn("font-paragraph text-[8px]", item.id)}
+            x={item.x}
+            y={item.y}
+          >
             {item.title}
             <tspan
-              className={cn("fill-background/70 text-end text-[5px]", item.id)}
+              className={cn(
+                "fill-background/70 font-paragraph text-end text-[5px]",
+                item.id,
+              )}
               x={item.dx}
               y={item.y + 8}
             >

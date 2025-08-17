@@ -40,12 +40,12 @@ export const TechStackHeader = () => {
 
   return (
     <h2
-      className="text-background font-headers japanese:text-4xl japanese:md:text-5xl text-6xl uppercase"
+      className="text-background font-headers text-3xl uppercase sm:text-4xl md:text-5xl"
       id="tech-stack-header"
     >
-      <span>My secret</span>
+      <span>My secret recipe</span>
       <br />
-      <span>recipe for cooking up</span>
+      <span>for cooking up</span>
       <br />
       <span>cool stuff</span>
     </h2>

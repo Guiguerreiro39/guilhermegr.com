@@ -12,6 +12,7 @@ import Link from "next/link";
 import { GITHUB_URL, LINKEDIN_URL } from "@/constants";
 import { AboutText } from "@/sections/about/about-text";
 import { AboutStats } from "@/sections/about/about-stats";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -19,47 +20,51 @@ export const About = () => {
   const { slowTheme } = useTheme();
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const isMobile = useIsMobile();
+
   useGSAP(
     () => {
-      const imageAnimation = gsap.timeline({
-        ease: "power1.inOut",
-        scrollTrigger: {
-          id: "about",
-          trigger: containerRef.current,
-          start: "top bottom",
-          end: "15% bottom",
-          scrub: 0.5,
-        },
+      const ctx = gsap.context(() => {
+        const iconAnimation = gsap.timeline({
+          ease: "power1.inOut",
+          scrollTrigger: {
+            id: "about",
+            trigger: containerRef.current,
+            start: "10% center",
+            end: "10% bottom",
+            scrub: 0.5,
+          },
+        });
+
+        const imageAnimation = gsap.timeline({
+          ease: "power1.inOut",
+          scrollTrigger: {
+            id: "about",
+            trigger: containerRef.current,
+            start: "20% bottom",
+            end: "70% bottom",
+            scrub: 0.5,
+          },
+        });
+
+        imageAnimation.from("#profile-image", {
+          scale: 0,
+        });
+
+        imageAnimation.to("#profile-image", {
+          scale: 1,
+        });
+
+        iconAnimation.from(".profile-image-icon", {
+          opacity: 0,
+        });
+
+        iconAnimation.to(".profile-image-icon", {
+          opacity: 1,
+        });
       });
 
-      const iconAnimation = gsap.timeline({
-        ease: "power1.inOut",
-        scrollTrigger: {
-          id: "about",
-          trigger: containerRef.current,
-          start: "10% center",
-          end: "15% bottom",
-          scrub: 0.5,
-        },
-      });
-
-      imageAnimation.from("#profile-image", {
-        width: "0",
-        height: "0",
-      });
-
-      imageAnimation.to("#profile-image", {
-        width: "24rem",
-        height: "60vh",
-      });
-
-      iconAnimation.from(".profile-image-icon", {
-        opacity: 0,
-      });
-
-      iconAnimation.to(".profile-image-icon", {
-        opacity: 1,
-      });
+      return () => ctx.revert();
     },
     { dependencies: [slowTheme], scope: containerRef },
   );
@@ -92,14 +97,23 @@ export const About = () => {
             "polygon(0% 80%, 22% 92%, 69% 84%, 100% 100%, 100% 0%, 0% 0%)",
         }}
       >
-        <div className="grid grid-cols-1 items-center pb-64 md:grid-cols-2">
-          <div className="order-1 col-span-1 space-y-12 md:order-none">
-            <AboutText />
-            <AboutStats />
-          </div>
-          <div className="col-span-1 flex w-full items-center justify-center">
+        <div className="grid grid-cols-1 items-center gap-12 pb-64 md:grid-cols-2 md:gap-8">
+          {isMobile ? (
+            <div className="col-span-1">
+              <AboutText />
+            </div>
+          ) : (
+            <div className="order-1 col-span-1 space-y-12 md:order-none">
+              <AboutText />
+              <AboutStats />
+            </div>
+          )}
+          <div className="col-span-1 flex items-start justify-center justify-self-center">
             <div className="relative">
-              <div className="profile-clip-path relative" id="profile-image">
+              <div
+                className="profile-clip-path scale-0md:h-[60vh] relative h-[60vh] w-[21rem] md:w-[24rem]"
+                id="profile-image"
+              >
                 <Image
                   src="/images/profile.jpg"
                   alt="Profile"
@@ -108,15 +122,20 @@ export const About = () => {
                 />
               </div>
               <Link href={GITHUB_URL} target="_blank">
-                <FaGithub className="profile-image-icon text-foreground absolute bottom-26 left-0 size-9 rounded-full transition-all duration-300 ease-out hover:scale-110" />
+                <FaGithub className="profile-image-icon text-foreground absolute bottom-30 -left-1 size-9 rounded-full transition-all duration-300 ease-out hover:scale-110 md:bottom-26 md:left-0" />
               </Link>
               <Link href={LINKEDIN_URL} target="_blank">
-                <div className="profile-image-icon bg-foreground absolute bottom-12 left-0 size-9 rounded-full transition-all duration-300 ease-out hover:scale-110">
+                <div className="profile-image-icon bg-foreground absolute bottom-16 -left-1 size-9 rounded-full transition-all duration-300 ease-out hover:scale-110 md:bottom-12 md:left-0">
                   <FaLinkedinIn className="text-background absolute-center size-6" />
                 </div>
               </Link>
             </div>
           </div>
+          {isMobile && (
+            <div className="col-span-1 md:hidden">
+              <AboutStats />
+            </div>
+          )}
         </div>
       </div>
 

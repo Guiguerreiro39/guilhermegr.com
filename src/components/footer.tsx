@@ -8,7 +8,7 @@ export const Footer = () => {
       <div className="px-5 sm:px-10">
         <div className="container mx-auto grid grid-cols-2 items-center justify-center gap-8 lg:grid-cols-4 lg:gap-12">
           <div className="order-2 col-span-2 space-y-4 place-self-center lg:order-1 lg:col-span-1 lg:place-self-start">
-            <p className="font-text text-center text-sm lg:text-start">
+            <p className="font-secondary text-center text-sm lg:text-start">
               Guilherme Guerreiro &copy; {new Date().getFullYear()}. <br />
               All rights reserved.
             </p>
@@ -22,7 +22,7 @@ export const Footer = () => {
             </div>
           </div>
 
-          <div className="order-1 col-span-2 flex space-x-4 place-self-center lg:order-2">
+          <div className="order-1 col-span-2 flex flex-wrap justify-center gap-8 place-self-center md:space-x-12 lg:order-2">
             <Link href="#hero" className="nav-hover-btn">
               Home
             </Link>

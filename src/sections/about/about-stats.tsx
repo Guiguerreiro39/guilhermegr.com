@@ -1,54 +1,97 @@
-import { useGSAP } from "@gsap/react";
+"use client";
+
 import gsap from "gsap";
 import { ScrollTrigger, SplitText } from "gsap/all";
 import { cn } from "@/lib/utils";
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 gsap.registerPlugin(SplitText);
 
 export const AboutStats = () => {
+  const textContainerRef = useRef<HTMLDivElement>(null);
+
   useGSAP(() => {
-    ScrollTrigger.getById("about-stats")?.kill();
+    gsap.matchMedia().add("(width >= 48rem)", () => {
+      const ctx = gsap.context(() => {
+        const textAnimation = gsap.timeline({
+          ease: "power1.inOut",
+          scrollTrigger: {
+            id: "about-stats",
+            trigger: textContainerRef.current,
+            start: "20% bottom",
+            end: "5% center",
+            scrub: 0.5,
+          },
+        });
 
-    const textAnimation = gsap.timeline({
-      ease: "power1.inOut",
-      scrollTrigger: {
-        id: "about-stats",
-        trigger: "#about-stats",
-        start: "20% bottom",
-        end: "30% center",
-        scrub: 0.5,
-      },
+        textAnimation.set(textContainerRef.current, {
+          opacity: 1,
+          y: 0,
+        });
+
+        const splitText = new SplitText(textContainerRef.current, {
+          type: "words",
+          aria: "hidden",
+        });
+
+        textAnimation.from(splitText.words, {
+          opacity: 0,
+          y: -40,
+          ease: "sine.out",
+          stagger: 0.1,
+        });
+      });
+
+      return () => {
+        ctx.revert();
+      };
     });
 
-    textAnimation.set("#about-stats", {
-      opacity: 1,
-      y: 0,
+    gsap.matchMedia().add("(width < 48rem)", () => {
+      const ctx = gsap.context(() => {
+        const textAnimation = gsap.timeline({
+          ease: "power1.inOut",
+          scrollTrigger: {
+            id: "about-stats",
+            trigger: textContainerRef.current,
+            start: "10% bottom",
+            end: "170% bottom",
+            scrub: 0.5,
+          },
+        });
+
+        textAnimation.set(textContainerRef.current, {
+          opacity: 1,
+          y: 0,
+        });
+
+        const splitText = new SplitText(textContainerRef.current, {
+          type: "words",
+          aria: "hidden",
+        });
+
+        textAnimation.from(splitText.words, {
+          opacity: 0,
+          y: -40,
+          ease: "sine.out",
+          stagger: 0.1,
+        });
+      });
+
+      return () => {
+        ctx.revert();
+      };
     });
-
-    const splitText = new SplitText("#about-stats", {
-      type: "words",
-      aria: "hidden",
-    });
-
-    textAnimation.from(splitText.words, {
-      opacity: 0,
-      y: -40,
-      ease: "sine.out",
-      stagger: 0.1,
-    });
-
-    setTimeout(() => {
-      ScrollTrigger.getById("about-text")?.refresh();
-    }, 100);
-
-    return () => {
-      textAnimation.kill();
-    };
   });
 
   return (
-    <div className="grid grid-cols-1 gap-8 lg:grid-cols-3" id="about-stats">
+    <div
+      className="grid grid-cols-1 gap-8 will-change-[opacity,transform] lg:grid-cols-3"
+      id="about-stats"
+      ref={textContainerRef}
+    >
       <StatItem
         title="Education"
         description="Bachelor's degree in Computer Science at University of Minho"
@@ -84,6 +127,6 @@ const StatItem = ({
     <h3 className="text-foreground font-headers text-3xl lg:text-2xl xl:text-3xl">
       {title}
     </h3>
-    <p className="max-w-60 text-balance">{description}</p>
+    <p className="font-paragraph max-w-60 text-balance">{description}</p>
   </div>
 );

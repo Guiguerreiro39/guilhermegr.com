@@ -7,6 +7,7 @@ import { TiLocationArrow } from "react-icons/ti";
 
 import { Button } from "@/components/button";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const navItems = ["Nexus", "Vault", "Prologue", "About", "Contact"];
 
@@ -39,18 +40,15 @@ const NavBar = () => {
   }, [isAudioPlaying]);
 
   useEffect(() => {
-    if (currentScrollY === 0) {
+    if (currentScrollY < 50) {
       // Topmost position: show navbar without floating-nav
       setIsNavVisible(true);
-      navContainerRef.current?.classList.remove("floating-nav");
     } else if (currentScrollY > lastScrollY) {
-      // Scrolling down: hide navbar and apply floating-nav
+      // Scrolling down: hide navbar
       setIsNavVisible(false);
-      navContainerRef.current?.classList.add("floating-nav");
-    } else if (currentScrollY < lastScrollY) {
-      // Scrolling up: show navbar with floating-nav
+    } else if (currentScrollY < lastScrollY - 10) {
+      // Scrolling up: show navbar
       setIsNavVisible(true);
-      navContainerRef.current?.classList.add("floating-nav");
     }
 
     setLastScrollY(currentScrollY);
@@ -67,25 +65,18 @@ const NavBar = () => {
   return (
     <div
       ref={navContainerRef}
-      className="fixed inset-x-0 top-4 z-50 h-16 rounded-lg border border-none bg-black/20 backdrop-blur-sm transition-all duration-700 sm:inset-x-6"
+      className="bg-foreground/50 fixed inset-x-0 top-4 z-50 h-16 rounded-lg border border-none backdrop-blur-sm transition-all duration-700 sm:inset-x-6"
     >
       <header className="theme-element absolute top-1/2 w-full -translate-y-1/2">
         <nav className="flex size-full items-center justify-between p-4">
           {/* Logo and Product button */}
           <div className="flex items-center gap-7">
-            <img src="/img/logo.png" alt="logo" className="w-10" />
-
-            <Button
-              id="product-button"
-              title="Products"
-              rightIcon={<TiLocationArrow />}
-              className="bg-background hidden items-center justify-center gap-1 md:flex"
-            />
+            <Image width={20} height={20} src="vercel.svg" alt="logo" />
           </div>
 
           {/* Navigation Links and Audio Button */}
           <div className="flex h-full items-center">
-            <div className="hidden md:block">
+            <div className="hidden gap-4 md:flex">
               {navItems.map((item, index) => (
                 <a
                   key={index}

@@ -2,8 +2,9 @@ import useMousePosition from "@/hooks/useMousePosition";
 import Image from "next/image";
 import gsap from "gsap";
 import { cn } from "@/lib/utils";
+import { useRef } from "react";
 
-export const TransitionIcon = ({
+export const Icon = ({
   src,
   alt,
   className,
@@ -12,12 +13,13 @@ export const TransitionIcon = ({
   alt: string;
   className?: string;
 }) => {
+  const imageRef = useRef<HTMLDivElement>(null);
   const mousePosition = useMousePosition();
 
   return (
     <div
       className="stack-item col-span-1 flex-shrink-0"
-      onMouseEnter={(e) => {
+      onMouseEnter={() => {
         const tl = gsap.timeline({
           onComplete: () => {
             tl.kill();
@@ -26,9 +28,7 @@ export const TransitionIcon = ({
 
         tl.timeScale(1.2);
 
-        const media = e.currentTarget.querySelector("img");
-
-        tl.to(media, {
+        tl.to(imageRef.current, {
           inertia: {
             x: {
               velocity: mousePosition.deltaX * 30, // Higher number = movement amplified
@@ -42,7 +42,7 @@ export const TransitionIcon = ({
         });
 
         tl.fromTo(
-          media,
+          imageRef.current,
           {
             rotate: 0,
           },
@@ -57,17 +57,26 @@ export const TransitionIcon = ({
         ); // Means that the animation starts at the same time as the previous tween
       }}
     >
-      <img
-        src={src}
-        alt={alt}
+      <div
+        ref={imageRef}
         className={cn(
-          "pointer-events-none h-fit w-[50px] md:w-[60px]",
+          "relative h-[50px] w-[50px] md:h-[60px] md:w-[60px]",
           className,
         )}
         style={{
           willChange: "transform",
         }}
-      />
+      >
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          className={cn("pointer-events-none object-contain", className)}
+          style={{
+            willChange: "transform",
+          }}
+        />
+      </div>
     </div>
   );
 };

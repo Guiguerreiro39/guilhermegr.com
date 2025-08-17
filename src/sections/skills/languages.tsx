@@ -1,7 +1,5 @@
 import { LanguagesHeader } from "@/sections/skills/languages-header";
-import { ProgrammingLanguagesHeader } from "@/sections/skills/programming-languages-header";
-import { TechStackHeader } from "@/sections/skills/tech-stack-header";
-import { TransitionIcon } from "@/sections/skills/transition-icon";
+import { Icon } from "@/sections/skills/icon";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger, InertiaPlugin } from "gsap/all";
@@ -44,23 +42,11 @@ export const Languages = ({ className }: Props) => {
       ref={containerRef}
     >
       <LanguagesHeader />
-      <div className="japanese:-right-30 japanese:-top-1 absolute -top-2 -right-26 flex rotate-[10deg] items-center">
-        <TransitionIcon
-          src="/logos/portugal.png"
-          alt="Portuguese"
-          className="p-1.5"
-        />
-        <TransitionIcon src="/logos/uk.png" alt="English" className="p-1.5" />
-        <TransitionIcon
-          src="/logos/spain.png"
-          alt="Spanish"
-          className="p-1.5"
-        />
-        <TransitionIcon
-          src="/logos/japan.png"
-          alt="Japanese"
-          className="mt-12 p-1.5"
-        />
+      <div className="japanese:-right-36 japanese:md:top-1 japanese:sm:top-4 japanese:-top-2 absolute top-0 -right-23 flex rotate-[10deg] items-center sm:top-2 md:top-6 md:-right-26">
+        <Icon src="/logos/portugal.png" alt="Portuguese" className="p-1.5" />
+        <Icon src="/logos/uk.png" alt="English" className="p-1.5" />
+        <Icon src="/logos/spain.png" alt="Spanish" className="p-1.5" />
+        <Icon src="/logos/japan.png" alt="Japanese" className="mt-5 p-1.5" />
       </div>
     </div>
   );

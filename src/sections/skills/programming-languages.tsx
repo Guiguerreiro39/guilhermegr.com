@@ -1,7 +1,6 @@
 import { cn } from "@/lib/utils";
 import { ProgrammingLanguagesHeader } from "@/sections/skills/programming-languages-header";
-import { TechStackHeader } from "@/sections/skills/tech-stack-header";
-import { TransitionIcon } from "@/sections/skills/transition-icon";
+import { Icon } from "@/sections/skills/icon";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger, InertiaPlugin } from "gsap/all";
@@ -43,23 +42,19 @@ export const ProgrammingLanguages = ({ className }: Props) => {
       ref={containerRef}
     >
       <ProgrammingLanguagesHeader />
-      <div className="japanese:sm:right-8 japanese:xs:-right-1 japanese:sm:bottom-0 japanese:-bottom-12 japanese:right-40 absolute -right-8 bottom-0 flex items-center gap-1">
-        <TransitionIcon
+      <div className="japanese:sm:-right-20 japanese:sm:bottom-0 japanese:left-auto japanese:-bottom-12 japanese:right-10 absolute right-12 -bottom-14 flex items-center gap-1 sm:-right-24 sm:-bottom-2 md:-right-16">
+        <Icon
           src="/logos/javascript.png"
           alt="Javascript"
           className="japanese:p-2 p-1.5"
         />
-        <TransitionIcon src="/logos/go.png" alt="Golang" />
-        <TransitionIcon
+        <Icon src="/logos/go.png" alt="Golang" />
+        <Icon
           src="/logos/python.png"
           alt="Python"
           className="japanese:p-2 p-1.5"
         />
-        <TransitionIcon
-          src="/logos/c-sharpe.png"
-          alt="C#"
-          className="japanese:p-1"
-        />
+        <Icon src="/logos/c-sharpe.png" alt="C#" className="japanese:p-1" />
       </div>
     </div>
   );

@@ -18,13 +18,13 @@ export const Button = ({
   return (
     <button
       className={cn(
-        "group flex-center text-foreground theme-element bg-primary relative z-10 h-fit w-fit cursor-pointer gap-2 overflow-hidden rounded-full px-7 py-4 focus:outline-none",
+        "group flex-center text-foreground font-secondary theme-element bg-primary relative z-10 h-fit w-fit cursor-pointer gap-2 overflow-hidden rounded-full px-7 py-3 focus:outline-none",
         className,
       )}
       {...props}
     >
       {leftIcon}
-      <span className="inclide-flex font-text relative overflow-hidden text-xs uppercase">
+      <span className="inclide-flex japanese:text-base relative overflow-hidden text-sm uppercase">
         {children}
       </span>
       {rightIcon}

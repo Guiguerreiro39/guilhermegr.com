@@ -1,17 +1,19 @@
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { Carousel } from "@/components/carousel";
 import { PROJECTS_DATA } from "@/constants";
+import { useTheme } from "@/context/theme";
 
 gsap.registerPlugin(ScrollTrigger);
 
 export const Projects = () => {
   const containerRef = useRef(null);
+  const { slowTheme } = useTheme();
 
-  useGSAP(
-    () => {
+  useEffect(() => {
+    const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         ease: "none",
         scrollTrigger: {
@@ -32,24 +34,41 @@ export const Projects = () => {
         borderRadius: "0 0 35% 0",
       });
 
-      gsap.from("#projects-frame", {
-        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
-        borderRadius: "0 0 0 0",
-        ease: "power1.inOut",
-        scrollTrigger: {
-          trigger: "#projects-frame",
-          start: "60% center",
-          end: "110% center",
-          scrub: true,
-        },
+      gsap.matchMedia().add("(width >= 48rem)", () => {
+        gsap.from("#projects-frame", {
+          clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+          borderRadius: "0 0 0 0",
+          ease: "power1.inOut",
+          scrollTrigger: {
+            trigger: "#projects-frame",
+            start: "bottom 110%",
+            end: "120% center",
+            scrub: true,
+          },
+        });
       });
-    },
-    { scope: containerRef },
-  );
+
+      gsap.matchMedia().add("(width < 48rem)", () => {
+        gsap.from("#projects-frame", {
+          clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+          borderRadius: "0 0 0 0",
+          ease: "power1.inOut",
+          scrollTrigger: {
+            trigger: "#projects-frame",
+            start: "bottom 80%",
+            end: "120% center",
+            scrub: true,
+          },
+        });
+      });
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, [slowTheme]);
 
   return (
     <section
-      className="bg-foreground relative min-h-screen w-screen pb-36"
+      className="bg-foreground relative min-h-screen w-screen pb-64"
       id="projects"
       ref={containerRef}
     >
@@ -75,13 +94,15 @@ export const Projects = () => {
           id="section-transition-div_5"
         ></div>
       </div>
-      <div className="bg-background h-[100px]" />
       <div
-        className="bg-background relative z-10 h-dvh w-screen overflow-hidden"
+        className="bg-background relative z-10 flex min-h-dvh w-screen py-36"
         id="projects-frame"
       >
-        <div className="relative flex h-screen w-full items-center justify-center overflow-hidden py-20">
-          <Carousel slides={PROJECTS_DATA} />
+        <div className="w-full self-center justify-self-center">
+          <div className="bg-background h-0 md:h-[50px]" />
+          <div className="relative flex w-full items-center justify-center overflow-hidden py-20">
+            <Carousel slides={PROJECTS_DATA} />
+          </div>
         </div>
       </div>
     </section>

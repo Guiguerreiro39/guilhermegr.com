@@ -37,7 +37,7 @@ export const AnimatedTitle = ({ title, className, ...props }: Props) => {
   return (
     <h2
       className={cn(
-        "text-background flex flex-col gap-1 text-7xl leading-[.8] uppercase drop-shadow-lg md:text-[6rem]",
+        "text-background flex flex-col gap-1 text-6xl leading-[.8] uppercase drop-shadow-lg md:text-7xl",
         className,
       )}
       ref={containerRef}

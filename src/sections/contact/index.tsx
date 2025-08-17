@@ -72,15 +72,15 @@ export const Contact = () => {
       >
         <AnimatedTitle title="Get in touch" />
         <p
-          className="text-background font-paragraph max-w-lg"
+          className="text-background font-paragraph max-w-md sm:max-w-lg"
           id="contact-text"
         >
           Always down to chat about sleek projects, wild ideas, or teaming up
           for something awesome.
         </p>
         <Link href="mailto:mail@guilhermegr.com">
-          <Button rightIcon={<FiMail />} className="mt-4">
-            mail@guilhermegr.com
+          <Button rightIcon={<FiMail />} className="text mt-4">
+            mail@guilhermegr<span className="font-paragraph">.</span>com
           </Button>
         </Link>
       </div>

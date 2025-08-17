@@ -1,6 +1,44 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/context/theme";
+import fonts from "./fonts";
+
+// @layer base {
+//   @font-face {
+//     font-family: "circular-web";
+//     src: url("/fonts/circularweb-book.woff2") format("woff2");
+//   }
+
+//   @font-face {
+//     font-family: "general";
+//     src: url("/fonts/general.woff2") format("woff2");
+//   }
+
+//   @font-face {
+//     font-family: "robert-medium";
+//     src: url("/fonts/robert-medium.woff2") format("woff2");
+//   }
+
+//   @font-face {
+//     font-family: "robert-regular";
+//     src: url("/fonts/robert-regular.woff2") format("woff2");
+//   }
+
+//   @font-face {
+//     font-family: "zentry";
+//     src: url("/fonts/zentry-regular.woff2") format("woff2");
+//   }
+
+//   @font-face {
+//     font-family: "last-shuriken";
+//     src: url("/fonts/last-shuriken.otf") format("opentype");
+//   }
+
+//   @font-face {
+//     font-family: "hayamichi";
+//     src: url("/fonts/hayamichi.ttf") format("truetype");
+//   }
+// }
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,7 +51,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${fonts}`}>
       <body>
         <ThemeProvider>{children}</ThemeProvider>
       </body>

@@ -2,16 +2,17 @@
 
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
-import { Button } from "@/components/button";
-import { TiLocationArrow } from "react-icons/ti";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import { type Theme, useTheme } from "@/context/theme";
+import { cn } from "@/lib/utils";
+import useMousePosition from "@/hooks/useMousePosition";
+import { ReactTyped } from "react-typed";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const IMAGES = ["hero-2.webp", "hero-1.jpg"];
+const IMAGES = ["hero-base.jpg", "hero-japanese.jpg"];
 const THEMES: Theme[] = ["base", "japanese"];
 const TOTAL_IMAGES = IMAGES.length;
 
@@ -21,11 +22,28 @@ export const Hero = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [loadedImages, setLoadedImages] = useState(0);
 
-  const { changeTheme } = useTheme();
-
   const nextImageRef = useRef<HTMLImageElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  const { xOffset, yOffset } = useMousePosition(containerRef);
+  const [isMoving, setIsMoving] = useState(false);
+  const [isHovering, setIsHovering] = useState(false);
+
+  const { changeTheme, slowTheme } = useTheme();
 
   const upcomingImageIndex = (currentIndex + 1) % TOTAL_IMAGES;
+
+  useEffect(() => {
+    setIsMoving(true);
+
+    const timeout = setTimeout(() => {
+      if (!isHovering) {
+        setIsMoving(false);
+      }
+    }, 300);
+
+    return () => clearTimeout(timeout);
+  }, [xOffset, yOffset, isHovering]);
 
   const fullImageIndex = () => {
     if (!hasClicked) {
@@ -50,7 +68,6 @@ export const Hero = () => {
   };
 
   const handleImageLoad = () => {
-    console.log("here");
     setLoadedImages((prev) => prev + 1);
   };
 
@@ -92,6 +109,9 @@ export const Hero = () => {
           duration: 1,
           delay: 0.2,
           ease: "power1.inOut",
+          onComplete: () => {
+            setHasClicked(false);
+          },
         });
 
         // Next Image
@@ -128,16 +148,32 @@ export const Hero = () => {
   });
 
   return (
-    <section className="relative h-dvh w-screen overflow-hidden">
+    <section
+      ref={containerRef}
+      className="relative h-dvh w-screen overflow-hidden"
+    >
       <div
         className="bg-background relative z-10 h-dvh w-screen overflow-hidden backdrop-grayscale-50"
         id="image-frame"
       >
         <div>
-          <div className="mask-clip-path absolute-center z-50 size-64 overflow-hidden rounded-lg">
+          <div
+            className={cn(
+              "imask-clip-path absolute-center z-50 size-64 overflow-hidden opacity-0 drop-shadow-2xl transition-opacity duration-500",
+              isMoving && !isHovering && "opacity-50",
+              isHovering && "opacity-100",
+            )}
+            style={{
+              transform: `translate(${xOffset * 20}px, ${yOffset * 20}px) rotateX(${-yOffset * 20}deg) rotateY(${xOffset * 20}deg)`,
+              perspective: "1000px",
+            }}
+          >
             <div
-              className="current-mini-image h-full w-full origin-center scale-50 cursor-pointer opacity-0 transition-all duration-500 hover:scale-100 hover:opacity-100"
+              id="mini-image"
+              className="current-mini-image h-full w-full origin-center scale-50 cursor-pointer transition-all duration-500 hover:scale-100"
               onClick={handleMiniImageClick}
+              onMouseEnter={() => setIsHovering(true)}
+              onMouseLeave={() => setIsHovering(false)}
             >
               <Image
                 alt="Current mini image"
@@ -185,17 +221,34 @@ export const Hero = () => {
               Guilherme
             </h1>
 
-            <p className="font-secondary text-background mb-5 max-w-64">
-              Web Developer <br />
-              Full Stack Developer
+            <p className="japanese:text-2xl font-secondary text-background mb-5 ml-4 text-xl uppercase">
+              <ReactTyped
+                loop
+                typeSpeed={80}
+                backSpeed={30}
+                strings={[
+                  "I'm a <span class='accent text-primary'>Software Engineer</span>",
+                  "I'm a <span class='accent text-primary'>Frontend Developer</span>",
+                  "I'm a <span class='accent text-primary'>creative mind</span>",
+                  "I'm an <span class='accent text-primary'>awesome person</span>",
+                ]}
+                smartBackspace
+                backDelay={1500}
+                loopCount={0}
+                showCursor
+                cursorChar={(() => {
+                  switch (slowTheme) {
+                    case "base":
+                      return "|";
+                    case "japanese":
+                      return " < ";
+                    default:
+                      return "|";
+                  }
+                })()}
+                className="typed"
+              />
             </p>
-            <Button
-              id="get-started"
-              leftIcon={<TiLocationArrow />}
-              className="gap-1"
-            >
-              Get Started
-            </Button>
           </div>
         </div>
       </div>

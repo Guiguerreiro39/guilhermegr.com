@@ -5,6 +5,7 @@ import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { IoMdClose } from "react-icons/io";
 
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/context/theme";
 
 function Dialog({
   ...props
@@ -21,7 +22,26 @@ function DialogTrigger({
 function DialogPortal({
   ...props
 }: React.ComponentProps<typeof DialogPrimitive.Portal>) {
-  return <DialogPrimitive.Portal data-slot="dialog-portal" {...props} />;
+  const [container, setContainer] = React.useState<HTMLElement | null>(null);
+  const { slowTheme } = useTheme();
+
+  React.useEffect(() => {
+    // This runs only in the browser
+    if (document) {
+      const mainEl = document.getElementsByTagName("main")[0];
+      if (mainEl) setContainer(mainEl);
+    }
+  }, [slowTheme]);
+
+  if (!container) return null;
+
+  return (
+    <DialogPrimitive.Portal
+      container={container}
+      data-slot="dialog-portal"
+      {...props}
+    />
+  );
 }
 
 function DialogClose({
@@ -38,7 +58,7 @@ function DialogOverlay({
     <DialogPrimitive.Overlay
       data-slot="dialog-overlay"
       className={cn(
-        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-black/50",
+        "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 bg-foreground/50 fixed inset-0 z-50",
         className,
       )}
       {...props}
@@ -108,7 +128,7 @@ function DialogTitle({
     <DialogPrimitive.Title
       data-slot="dialog-title"
       className={cn(
-        "text-foreground text-center text-3xl leading-none font-semibold md:text-4xl",
+        "text-foreground font-secondary text-center text-3xl leading-none font-semibold uppercase md:text-4xl",
         className,
       )}
       {...props}
@@ -123,7 +143,7 @@ function DialogDescription({
   return (
     <DialogPrimitive.Description
       data-slot="dialog-description"
-      className={cn("text-foreground/55 text-center", className)}
+      className={cn("text-foreground/55 font-paragraph text-center", className)}
       {...props}
     />
   );

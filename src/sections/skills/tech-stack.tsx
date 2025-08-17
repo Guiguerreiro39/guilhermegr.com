@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import { TechStackHeader } from "@/sections/skills/tech-stack-header";
-import { TransitionIcon } from "@/sections/skills/transition-icon";
+import { Icon } from "@/sections/skills/icon";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger, InertiaPlugin } from "gsap/all";
@@ -42,18 +42,18 @@ export const TechStack = ({ className }: Props) => {
       ref={containerRef}
     >
       <TechStackHeader />
-      <div className="japanese:md:right-48 japanese:sm:-bottom-1 japanese:sm:right-36 japanese:right-58 japanese:-bottom-30 absolute right-20 bottom-0 flex items-center gap-2">
-        <TransitionIcon src="/logos/react.png" alt="React" />
-        <TransitionIcon src="/logos/nextjs.png" alt="Next.js" />
-        <TransitionIcon src="/logos/tailwindcss.png" alt="Tailwind CSS" />
+      <div className="japanese:md:right-10 japanese:sm:-bottom-1 japanese:right-24 japanese:sm:right-6 japanese:-bottom-30 absolute right-auto -bottom-34 left-8 flex items-center gap-2 sm:right-8 sm:-bottom-2 sm:left-auto">
+        <Icon src="/logos/react.png" alt="React" />
+        <Icon src="/logos/nextjs.png" alt="Next.js" />
+        <Icon src="/logos/tailwindcss.png" alt="Tailwind CSS" />
       </div>
-      <div className="japanese:md:-bottom-18 japanese:sm:-left-8 japanese:-left-24 japanese:-bottom-15 absolute -bottom-18 -left-8 flex items-center gap-2">
-        <TransitionIcon src="/logos/typescript.png" alt="TypeScript" />
-        <TransitionIcon src="/logos/shadcn.svg" alt="Shadcn" />
-        <TransitionIcon src="/logos/react-query.png" alt="React Query" />
-        <TransitionIcon src="/logos/trpc.png" alt="TRPC" className="p-1.5" />
-        <TransitionIcon src="/logos/prisma.png" alt="Prisma" className="p-2" />
-        <TransitionIcon src="/logos/effect.png" alt="Effect" />
+      <div className="japanese:md:-bottom-18 japanese:sm:left-6 japanese:md:left-20 japanese:-left-12 japanese:-bottom-15 absolute -bottom-20 -left-16 flex items-center gap-2 sm:left-10 md:left-32">
+        <Icon src="/logos/typescript.png" alt="TypeScript" />
+        <Icon src="/logos/shadcn.svg" alt="Shadcn" />
+        <Icon src="/logos/react-query.png" alt="React Query" />
+        <Icon src="/logos/trpc.png" alt="TRPC" className="p-1.5" />
+        <Icon src="/logos/prisma.png" alt="Prisma" className="p-2" />
+        <Icon src="/logos/effect.png" alt="Effect" />
       </div>
     </div>
   );

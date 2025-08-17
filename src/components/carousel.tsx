@@ -1,5 +1,5 @@
 "use client";
-import { FaArrowRight, FaGithub, FaGlobe } from "react-icons/fa";
+import { FaArrowRight, FaGithub, FaGlobe, FaExpand } from "react-icons/fa";
 import { useState, useRef, useId, useEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/button";
@@ -35,10 +35,17 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
   const [openDialog, setOpenDialog] = useState(false);
 
   const slideRef = useRef<HTMLLIElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const xRef = useRef(0);
   const yRef = useRef(0);
   const frameRef = useRef<number>(null);
+
+  const handleFullScreen = () => {
+    if (videoRef.current) {
+      videoRef.current.requestFullscreen();
+    }
+  };
 
   useEffect(() => {
     const animate = () => {
@@ -142,7 +149,7 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
             current === index ? "visible opacity-100" : "invisible opacity-0"
           }`}
         >
-          <h2 className="font-text relative text-lg font-semibold uppercase drop-shadow-xl md:text-4xl lg:text-5xl">
+          <h2 className="font-secondary relative text-4xl font-semibold uppercase drop-shadow-xl lg:text-5xl">
             {title}
           </h2>
           <div className="mt-8 flex justify-center gap-4">
@@ -175,9 +182,24 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
             <DialogDescription>{description}</DialogDescription>
           </DialogHeader>
           <div className="flex items-center justify-center">
-            <div className="my-4 h-[55dvh] w-[85dvw] drop-shadow-lg md:h-[50vmin] md:w-[80vmin] lg:h-[60vmin] lg:w-[90vmin]">
+            <div className="group relative my-4 flex h-[55dvh] w-[80dvw] items-center justify-center drop-shadow-lg md:h-[50vmin] md:w-[80vmin] lg:h-[60vmin] lg:w-[90vmin]">
               {video ? (
-                <video autoPlay loop className="h-full w-full" src={video} />
+                <div className="relative">
+                  <video
+                    autoPlay
+                    loop
+                    className="relative h-full w-full"
+                    src={video}
+                    ref={videoRef}
+                  />
+                  <button
+                    onClick={handleFullScreen}
+                    className="bg-background/50 text-foreground absolute right-2 bottom-2 z-10 rounded-full p-2 opacity-100 transition-opacity duration-300 focus:outline-none md:opacity-0 md:group-hover:opacity-100"
+                    aria-label="Full screen"
+                  >
+                    <FaExpand className="size-5" />
+                  </button>
+                </div>
               ) : (
                 <Image
                   alt={title}

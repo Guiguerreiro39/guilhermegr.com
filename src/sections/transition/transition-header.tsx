@@ -41,10 +41,10 @@ export const TransitionHeader = () => {
   });
 
   return (
-    <div className="absolute top-1/2 left-1/2 w-screen -translate-x-1/2 -translate-y-1/2">
+    <div className="absolute top-1/2 left-1/2 z-40 w-screen -translate-x-1/2 -translate-y-1/2">
       <h2
         id="transition-header"
-        className="split text-background font-headers japanese:text-6xl japanese:md:text-7xl w-screen px-12 text-center text-8xl text-balance uppercase drop-shadow-xl"
+        className="split text-background font-headers w-screen px-12 text-center text-4xl text-balance uppercase drop-shadow-xl sm:text-6xl md:text-7xl"
       >
         The weird and wonderful things I’ve created
       </h2>

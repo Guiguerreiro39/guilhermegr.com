@@ -12,7 +12,7 @@ type ThemeProviderState = {
   slowTheme: Theme;
   fastTheme: Theme;
   themeHasChanged: boolean;
-  changeTheme: (theme: Theme) => void;
+  changeTheme: (theme: Theme, callback?: () => void) => void;
 };
 
 const initialState: ThemeProviderState = {
@@ -29,9 +29,10 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   const [fastTheme, setFastTheme] = useState<Theme>("base");
   const [themeHasChanged, setThemeHasChanged] = useState(false);
 
-  const handleThemeChange = (theme: Theme) => {
+  const handleThemeChange = (theme: Theme, callback?: () => void) => {
     setTimeout(() => {
       setSlowTheme(theme);
+      callback?.();
     }, 1000);
 
     setFastTheme(theme);
