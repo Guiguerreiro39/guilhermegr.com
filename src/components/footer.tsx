@@ -33,7 +33,7 @@ export const Footer = () => {
               Skills
             </Link>
             <Link href="#timeline" className="nav-hover-btn">
-              Experience
+              Timeline
             </Link>
             <Link href="#projects" className="nav-hover-btn">
               Projects

@@ -122,10 +122,10 @@ export const About = () => {
                 />
               </div>
               <Link href={GITHUB_URL} target="_blank">
-                <FaGithub className="profile-image-icon text-foreground absolute bottom-30 -left-1 size-9 rounded-full transition-all duration-300 ease-out hover:scale-110 md:bottom-26 md:left-0" />
+                <FaGithub className="profile-image-icon text-foreground absolute bottom-26 -left-1 size-9 rounded-full transition-all duration-300 ease-out hover:scale-110 md:bottom-26 md:left-0" />
               </Link>
               <Link href={LINKEDIN_URL} target="_blank">
-                <div className="profile-image-icon bg-foreground absolute bottom-16 -left-1 size-9 rounded-full transition-all duration-300 ease-out hover:scale-110 md:bottom-12 md:left-0">
+                <div className="profile-image-icon bg-foreground absolute bottom-12 -left-1 size-9 rounded-full transition-all duration-300 ease-out hover:scale-110 md:bottom-12 md:left-0">
                   <FaLinkedinIn className="text-background absolute-center size-6" />
                 </div>
               </Link>

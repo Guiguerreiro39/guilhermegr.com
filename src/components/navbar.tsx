@@ -3,50 +3,34 @@
 import gsap from "gsap";
 import { useWindowScroll } from "react-use";
 import { useEffect, useRef, useState } from "react";
-import { TiLocationArrow } from "react-icons/ti";
+import { RiMenu4Line } from "react-icons/ri";
+import { IoMdClose } from "react-icons/io";
 
-import { Button } from "@/components/button";
-import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/useIsMobile";
 import Image from "next/image";
-
-const navItems = ["Nexus", "Vault", "Prologue", "About", "Contact"];
+import Link from "next/link";
+import { useGSAP } from "@gsap/react";
+import { cn } from "@/lib/utils";
 
 const NavBar = () => {
-  // State for toggling audio and visual indicator
-  const [isAudioPlaying, setIsAudioPlaying] = useState(false);
-  const [isIndicatorActive, setIsIndicatorActive] = useState(false);
-
   // Refs for audio and navigation container
-  const audioElementRef = useRef<HTMLAudioElement>(null);
   const navContainerRef = useRef<HTMLDivElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
 
   const { y: currentScrollY } = useWindowScroll();
   const [isNavVisible, setIsNavVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-
-  // Toggle audio and visual indicator
-  const toggleAudioIndicator = () => {
-    setIsAudioPlaying((prev) => !prev);
-    setIsIndicatorActive((prev) => !prev);
-  };
-
-  // Manage audio playback
-  useEffect(() => {
-    if (isAudioPlaying) {
-      audioElementRef.current?.play();
-    } else {
-      audioElementRef.current?.pause();
-    }
-  }, [isAudioPlaying]);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     if (currentScrollY < 50) {
       // Topmost position: show navbar without floating-nav
       setIsNavVisible(true);
-    } else if (currentScrollY > lastScrollY) {
+    } else if (currentScrollY > lastScrollY && !isMenuOpen) {
       // Scrolling down: hide navbar
       setIsNavVisible(false);
-    } else if (currentScrollY < lastScrollY - 10) {
+    } else if (currentScrollY < lastScrollY - 10 && !isMenuOpen) {
       // Scrolling up: show navbar
       setIsNavVisible(true);
     }
@@ -62,59 +46,140 @@ const NavBar = () => {
     });
   }, [isNavVisible]);
 
-  return (
-    <div
-      ref={navContainerRef}
-      className="bg-foreground/50 fixed inset-x-0 top-4 z-50 h-16 rounded-lg border border-none backdrop-blur-sm transition-all duration-700 sm:inset-x-6"
-    >
-      <header className="theme-element absolute top-1/2 w-full -translate-y-1/2">
-        <nav className="flex size-full items-center justify-between p-4">
-          {/* Logo and Product button */}
-          <div className="flex items-center gap-7">
-            <Image width={20} height={20} src="vercel.svg" alt="logo" />
-          </div>
+  useGSAP(() => {
+    if (isMobile) {
+      if (isMenuOpen) {
+        gsap.from(mobileMenuRef.current, {
+          opacity: 0,
+          scale: 0,
+          duration: 0.3,
+        });
 
-          {/* Navigation Links and Audio Button */}
-          <div className="flex h-full items-center">
-            <div className="hidden gap-4 md:flex">
-              {navItems.map((item, index) => (
-                <a
-                  key={index}
-                  href={`#${item.toLowerCase()}`}
-                  className="nav-hover-btn"
-                >
-                  {item}
-                </a>
-              ))}
+        gsap.to(mobileMenuRef.current, {
+          opacity: 1,
+          scale: 1,
+          duration: 0.3,
+        });
+      }
+
+      if (!isMenuOpen) {
+        gsap.from(mobileMenuRef.current, {
+          opacity: 1,
+          scale: 1,
+          duration: 0.3,
+        });
+
+        gsap.to(mobileMenuRef.current, {
+          opacity: 0,
+          scale: 0,
+          duration: 0.3,
+        });
+      }
+    }
+  }, [isMenuOpen]);
+
+  return (
+    <header className="theme-element relative">
+      <div
+        ref={navContainerRef}
+        className="bg-foreground/50 fixed inset-x-2 top-2 z-40 h-16 rounded-lg border border-none backdrop-blur-sm transition-all duration-700 md:inset-x-6 md:top-4"
+      >
+        <div className="absolute top-1/2 w-full -translate-y-1/2">
+          <div className="flex size-full items-center justify-between p-4">
+            {/* Logo and Product button */}
+            <div className="flex items-center gap-7">
+              <Image width={20} height={20} src="vercel.svg" alt="logo" />
             </div>
 
-            <button
-              onClick={toggleAudioIndicator}
-              className="ml-10 flex items-center space-x-0.5"
-            >
-              <audio
-                ref={audioElementRef}
-                className="hidden"
-                src="/audio/loop.mp3"
-                loop
-              />
-              {[1, 2, 3, 4].map((bar) => (
-                <div
-                  key={bar}
-                  className={cn(
-                    "indicator-line",
-                    isIndicatorActive && "active",
-                  )}
-                  style={{
-                    animationDelay: `${bar * 0.1}s`,
-                  }}
-                />
-              ))}
-            </button>
+            {/* Navigation Links and Audio Button */}
+            <nav className="flex h-full items-center">
+              <div className="hidden gap-4 md:flex">
+                <Link href="#hero" className="nav-hover-btn">
+                  Home
+                </Link>
+                <Link href="#about" className="nav-hover-btn">
+                  About
+                </Link>
+                <Link href="#skills" className="nav-hover-btn">
+                  Skills
+                </Link>
+                <Link href="#timeline" className="nav-hover-btn">
+                  Timeline
+                </Link>
+                <Link href="#projects" className="nav-hover-btn">
+                  Projects
+                </Link>
+                <Link href="#contact" className="nav-hover-btn">
+                  Contact
+                </Link>
+              </div>
+              <div className="md:hidden">
+                <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                  <RiMenu4Line className="fill-background size-6" />
+                </button>
+              </div>
+            </nav>
           </div>
-        </nav>
-      </header>
-    </div>
+        </div>
+      </div>
+      {isMobile && isMenuOpen && (
+        <div
+          className="bg-background fixed inset-0 z-50 h-screen w-screen origin-top-right p-6"
+          ref={mobileMenuRef}
+        >
+          <button
+            className="border-foreground float-right border p-1"
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <IoMdClose className="fill-foreground size-6" />
+          </button>
+          <nav className="flex h-full flex-col items-center justify-center gap-8 p-4">
+            <Link
+              href="#hero"
+              className="nav-hover-btn !text-foreground !text-2xl"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Home
+            </Link>
+            <Link
+              href="#about"
+              className="nav-hover-btn !text-foreground !text-2xl"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              About
+            </Link>
+            <Link
+              href="#skills"
+              className="nav-hover-btn !text-foreground !text-2xl"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Skills
+            </Link>
+            <Link
+              href="#timeline"
+              className="nav-hover-btn !text-foreground !text-2xl"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Timeline
+            </Link>
+            <Link
+              href="#projects"
+              className="nav-hover-btn !text-foreground !text-2xl"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Projects
+            </Link>
+            <Link
+              href="#contact"
+              className="nav-hover-btn !text-foreground !text-2xl"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Contact
+            </Link>
+          </nav>
+        </div>
+      )}
+    </header>
   );
 };
 

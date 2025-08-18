@@ -6,7 +6,6 @@ import { Button } from "@/components/button";
 import Link from "next/link";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
@@ -149,7 +148,7 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
             current === index ? "visible opacity-100" : "invisible opacity-0"
           }`}
         >
-          <h2 className="font-secondary relative text-4xl font-semibold uppercase drop-shadow-xl lg:text-5xl">
+          <h2 className="font-secondary relative text-4xl font-semibold text-white uppercase drop-shadow-xl lg:text-5xl">
             {title}
           </h2>
           <div className="mt-8 flex justify-center gap-4">

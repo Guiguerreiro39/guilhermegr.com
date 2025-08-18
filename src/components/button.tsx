@@ -18,7 +18,7 @@ export const Button = ({
   return (
     <button
       className={cn(
-        "group flex-center text-foreground font-secondary theme-element bg-primary relative z-10 h-fit w-fit cursor-pointer gap-2 overflow-hidden rounded-full px-7 py-3 focus:outline-none",
+        "group flex-center text-primary-foreground font-secondary theme-element bg-primary relative z-10 h-fit w-fit cursor-pointer gap-2 overflow-hidden rounded-full px-7 py-3 focus:outline-none",
         className,
       )}
       {...props}

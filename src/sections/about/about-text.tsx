@@ -54,7 +54,7 @@ export const AboutText = () => {
           I'm a Software Engineer riding the wave of the latest tech trends to
           turn big ideas into sleek projects!
         </p>
-        <p className="text-foreground/55 font-secondary japanese:text-2xl">
+        <p className="text-foreground/55 font-secondary japanese:text-2xl retro:text-2xl">
           Always curious<span className="font-paragraph">,</span> always
           leveling up
         </p>

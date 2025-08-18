@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState } from "react";
 
-export type Theme = "base" | "japanese";
+export type Theme = "base" | "japanese" | "retro";
 
 type ThemeProviderProps = {
   children: React.ReactNode;

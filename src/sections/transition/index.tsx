@@ -3,11 +3,12 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
 import Image from "next/image";
 import { useEffect } from "react";
-import { useTheme } from "@/context/theme";
+import { Theme, useTheme } from "@/context/theme";
 
-const IMAGES = {
+const IMAGES: Record<Theme, string> = {
   japanese: "transition-japanese.jpg",
   base: "transition-base.jpg",
+  retro: "transition-retro.jpg",
 };
 
 gsap.registerPlugin(ScrollTrigger);

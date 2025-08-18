@@ -46,7 +46,7 @@ export const TransitionHeader = () => {
         id="transition-header"
         className="split text-background font-headers w-screen px-12 text-center text-4xl text-balance uppercase drop-shadow-xl sm:text-6xl md:text-7xl"
       >
-        The weird and wonderful things I’ve created
+        The weird and wonderful things I've created
       </h2>
     </div>
   );

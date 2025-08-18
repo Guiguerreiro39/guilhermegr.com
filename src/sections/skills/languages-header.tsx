@@ -16,6 +16,10 @@ const ANIMATION_VALUES = {
     x: 50,
     y: 20,
   },
+  retro: {
+    x: 20,
+    y: 10,
+  },
 };
 
 export const LanguagesHeader = () => {
@@ -65,7 +69,7 @@ export const LanguagesHeader = () => {
 
   return (
     <h2
-      className="text-background font-headers japanese:leading-6 japanese:sm:leading-11 relative text-3xl uppercase sm:text-4xl md:text-5xl md:leading-14"
+      className="text-background font-headers japanese:leading-6 japanese:sm:leading-11 retro:leading-10 retro:sm:leading-12 retro:md:leading-16 relative text-3xl uppercase sm:text-4xl md:text-5xl md:leading-14"
       id="languages-header"
     >
       <span className="japanese:md:pl-26 japanese:pl-20">My</span>

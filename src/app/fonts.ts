@@ -60,6 +60,26 @@ const leagueSpartan = localFont({
   variable: "--font-league-spartan",
 });
 
+const ka1 = localFont({
+  src: [
+    {
+      path: "./_fonts/ka1.ttf",
+      weight: "400",
+    },
+  ],
+  variable: "--font-ka1",
+});
+
+const orangeKid = localFont({
+  src: [
+    {
+      path: "./_fonts/orange-kid.otf",
+      weight: "400",
+    },
+  ],
+  variable: "--font-orange-kid",
+});
+
 export default [
   hayamichi.variable,
   lastShuriken.variable,
@@ -67,4 +87,6 @@ export default [
   circularWeb.variable,
   monsterBeast.variable,
   leagueSpartan.variable,
+  ka1.variable,
+  orangeKid.variable,
 ].join(" ");

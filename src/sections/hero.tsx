@@ -9,11 +9,12 @@ import { type Theme, useTheme } from "@/context/theme";
 import { cn } from "@/lib/utils";
 import useMousePosition from "@/hooks/useMousePosition";
 import { ReactTyped } from "react-typed";
+import { useIsMobile } from "@/hooks/useIsMobile";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const IMAGES = ["hero-base.jpg", "hero-japanese.jpg"];
-const THEMES: Theme[] = ["base", "japanese"];
+const IMAGES = ["hero-base.jpg", "hero-japanese.jpg", "hero-retro.jpg"];
+const THEMES: Theme[] = ["base", "japanese", "retro"];
 const TOTAL_IMAGES = IMAGES.length;
 
 export const Hero = () => {
@@ -30,10 +31,13 @@ export const Hero = () => {
   const [isHovering, setIsHovering] = useState(false);
 
   const { changeTheme, slowTheme } = useTheme();
+  const isMobile = useIsMobile();
 
   const upcomingImageIndex = (currentIndex + 1) % TOTAL_IMAGES;
 
   useEffect(() => {
+    if (isMobile) return;
+
     setIsMoving(true);
 
     const timeout = setTimeout(() => {
@@ -48,10 +52,6 @@ export const Hero = () => {
   const fullImageIndex = () => {
     if (!hasClicked) {
       return currentIndex;
-    }
-
-    if (currentIndex === TOTAL_IMAGES - 1) {
-      return 0;
     }
 
     if (currentIndex === 0) {
@@ -156,6 +156,13 @@ export const Hero = () => {
         className="bg-background relative z-10 h-dvh w-screen overflow-hidden backdrop-grayscale-50"
         id="image-frame"
       >
+        {isMobile && (
+          <div className="theme-element absolute-center z-30">
+            <div className="text-background border-background font-secondary animate-pulse border p-2 opacity-10">
+              Click me
+            </div>
+          </div>
+        )}
         <div>
           <div
             className={cn(
@@ -172,8 +179,8 @@ export const Hero = () => {
               id="mini-image"
               className="current-mini-image h-full w-full origin-center scale-50 cursor-pointer transition-all duration-500 hover:scale-100"
               onClick={handleMiniImageClick}
-              onMouseEnter={() => setIsHovering(true)}
-              onMouseLeave={() => setIsHovering(false)}
+              onMouseEnter={() => !isMobile && setIsHovering(true)}
+              onMouseLeave={() => !isMobile && setIsHovering(false)}
             >
               <Image
                 alt="Current mini image"
@@ -221,7 +228,7 @@ export const Hero = () => {
               Guilherme
             </h1>
 
-            <p className="japanese:text-2xl font-secondary text-background mb-5 ml-4 text-xl uppercase">
+            <p className="japanese:text-2xl retro:text-3xl font-secondary text-background retro:mt-5 ml-4 text-xl uppercase">
               <ReactTyped
                 loop
                 typeSpeed={80}

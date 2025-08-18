@@ -42,12 +42,12 @@ export const TechStack = ({ className }: Props) => {
       ref={containerRef}
     >
       <TechStackHeader />
-      <div className="japanese:md:right-10 japanese:sm:-bottom-1 japanese:right-24 japanese:sm:right-6 japanese:-bottom-30 absolute right-auto -bottom-34 left-8 flex items-center gap-2 sm:right-8 sm:-bottom-2 sm:left-auto">
+      <div className="japanese:md:right-10 japanese:sm:-bottom-1 japanese:right-24 japanese:sm:right-6 japanese:-bottom-30 retro:sm:-bottom-4 absolute right-auto -bottom-34 left-8 flex items-center gap-2 sm:right-8 sm:-bottom-2 sm:left-auto">
         <Icon src="/logos/react.png" alt="React" />
         <Icon src="/logos/nextjs.png" alt="Next.js" />
         <Icon src="/logos/tailwindcss.png" alt="Tailwind CSS" />
       </div>
-      <div className="japanese:md:-bottom-18 japanese:sm:left-6 japanese:md:left-20 japanese:-left-12 japanese:-bottom-15 absolute -bottom-20 -left-16 flex items-center gap-2 sm:left-10 md:left-32">
+      <div className="japanese:md:-bottom-18 japanese:sm:left-6 japanese:md:left-20 japanese:-left-12 japanese:-bottom-15 retro:md:left-37 absolute -bottom-20 -left-16 flex items-center gap-2 sm:left-10 md:left-32">
         <Icon src="/logos/typescript.png" alt="TypeScript" />
         <Icon src="/logos/shadcn.svg" alt="Shadcn" />
         <Icon src="/logos/react-query.png" alt="React Query" />

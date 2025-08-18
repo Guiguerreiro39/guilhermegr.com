@@ -42,7 +42,7 @@ export const ProgrammingLanguages = ({ className }: Props) => {
       ref={containerRef}
     >
       <ProgrammingLanguagesHeader />
-      <div className="japanese:sm:-right-20 japanese:sm:bottom-0 japanese:left-auto japanese:-bottom-12 japanese:right-10 absolute right-12 -bottom-14 flex items-center gap-1 sm:-right-24 sm:-bottom-2 md:-right-16">
+      <div className="japanese:sm:-right-20 japanese:sm:bottom-0 japanese:left-auto japanese:-bottom-12 japanese:right-10 retro:sm:-right-10 retro:md:-right-24 absolute right-12 -bottom-14 flex items-center gap-1 sm:-right-24 sm:-bottom-2 md:-right-16">
         <Icon
           src="/logos/javascript.png"
           alt="Javascript"
