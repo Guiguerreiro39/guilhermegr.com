@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { ThemeProvider } from "@/context/theme";
 import fonts from "./fonts";
+import { IsLoadingProvider } from "@/context/loading";
 
 // @layer base {
 //   @font-face {
@@ -53,7 +54,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${fonts}`}>
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <IsLoadingProvider>
+          <ThemeProvider>{children}</ThemeProvider>
+        </IsLoadingProvider>
       </body>
     </html>
   );

@@ -113,7 +113,7 @@ html {
   }
 
   .hero-heading {
-    @apply font-headers retro:sm:text-6xl retro:md:text-7xl retro:lg:text-8xl retro:text-4xl text-5xl font-black tracking-wide uppercase sm:right-10 sm:text-6xl md:text-7xl lg:text-8xl;
+    @apply font-headers retro:sm:text-6xl retro:md:text-7xl retro:lg:text-8xl retro:text-4xl w-fit text-5xl font-black tracking-wide uppercase sm:right-10 sm:text-6xl md:text-7xl lg:text-8xl;
   }
 
   .about-subtext {

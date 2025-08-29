@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import useMousePosition from "@/hooks/useMousePosition";
 import { ReactTyped } from "react-typed";
 import { useIsMobile } from "@/hooks/useIsMobile";
+import { PageLoading } from "@/components/page-loading";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -150,6 +151,7 @@ export const Hero = () => {
   return (
     <section
       ref={containerRef}
+      id="hero"
       className="relative h-dvh w-screen overflow-hidden"
     >
       <div

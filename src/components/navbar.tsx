@@ -10,7 +10,7 @@ import { useIsMobile } from "@/hooks/useIsMobile";
 import Image from "next/image";
 import Link from "next/link";
 import { useGSAP } from "@gsap/react";
-import { cn } from "@/lib/utils";
+import { useIsLoading } from "@/context/loading";
 
 const NavBar = () => {
   // Refs for audio and navigation container
@@ -21,7 +21,9 @@ const NavBar = () => {
   const [isNavVisible, setIsNavVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   const isMobile = useIsMobile();
+  const { isLoading } = useIsLoading();
 
   useEffect(() => {
     if (currentScrollY < 50) {
@@ -39,6 +41,8 @@ const NavBar = () => {
   }, [currentScrollY, lastScrollY]);
 
   useEffect(() => {
+    if (isLoading) return;
+
     gsap.to(navContainerRef.current, {
       y: isNavVisible ? 0 : -100,
       opacity: isNavVisible ? 1 : 0,
@@ -79,12 +83,13 @@ const NavBar = () => {
   }, [isMenuOpen]);
 
   return (
-    <header className="theme-element relative">
+    <>
       <div
         ref={navContainerRef}
-        className="bg-foreground/50 fixed inset-x-2 top-2 z-40 h-16 rounded-lg border border-none backdrop-blur-sm transition-all duration-700 md:inset-x-6 md:top-4"
+        id="navbar"
+        className="theme-element fixed inset-x-2 top-2 z-40 h-16 opacity-0 backdrop-blur-sm md:inset-x-6 md:top-4"
       >
-        <div className="absolute top-1/2 w-full -translate-y-1/2">
+        <div className="bg-foreground/50 absolute top-1/2 h-full w-full -translate-y-1/2 rounded-lg border border-none">
           <div className="flex size-full items-center justify-between p-4">
             {/* Logo and Product button */}
             <div className="flex items-center gap-7">
@@ -179,7 +184,7 @@ const NavBar = () => {
           </nav>
         </div>
       )}
-    </header>
+    </>
   );
 };
 
