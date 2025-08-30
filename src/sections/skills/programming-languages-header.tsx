@@ -56,7 +56,7 @@ export const ProgrammingLanguagesHeader = () => {
     >
       <span>Code dialects</span>
       <br />
-      <span>I’m most</span>
+      <span>I'm most</span>
       <br />
       <span>fluent in</span>
     </h2>

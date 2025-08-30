@@ -111,7 +111,7 @@ export const PageLoading = () => {
     <>
       <div
         id="progress-bar"
-        className="text-primary absolute top-1/2 left-0 flex w-[25vw] -translate-y-1/2 items-center justify-between p-[2em]"
+        className="text-primary absolute top-1/2 left-0 flex -translate-y-1/2 items-center justify-between gap-2 p-[0.5em] sm:w-[25vw] sm:p-[2em]"
       >
         <p className="uppercase">loading</p>
         <p>

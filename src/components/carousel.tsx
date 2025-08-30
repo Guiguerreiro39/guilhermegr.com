@@ -1,6 +1,6 @@
 "use client";
 import { FaArrowRight, FaGithub, FaGlobe, FaExpand } from "react-icons/fa";
-import { useState, useRef, useId, useEffect } from "react";
+import { useState, useRef, useId, useEffect, useLayoutEffect } from "react";
 import Image from "next/image";
 import { Button } from "@/components/button";
 import Link from "next/link";
@@ -12,6 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/dialog";
+import { cn } from "@/lib/utils";
 
 interface SlideData {
   title: string;
@@ -46,7 +47,7 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
     }
   };
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const animate = () => {
       if (!slideRef.current) return;
 
@@ -137,15 +138,19 @@ const Slide = ({ slide, index, current, handleSlideClick }: SlideProps) => {
               loading="eager"
               decoding="sync"
             />
-            {current === index && (
-              <div className="bg-foreground/40 absolute inset-0 transition-all duration-1000" />
-            )}
+
+            <div
+              className={cn(
+                "bg-foreground/40 absolute inset-0 transition-all duration-1000",
+                current === index ? "opacity-100" : "opacity-0",
+              )}
+            />
           </div>
         </div>
 
         <article
-          className={`relative p-[4vmin] transition-all duration-400 ease-in-out ${
-            current === index ? "visible opacity-100" : "invisible opacity-0"
+          className={`relative p-[4vmin] transition-all duration-1000 ease-in-out ${
+            current === index ? "opacity-100" : "opacity-0"
           }`}
         >
           <h2 className="font-secondary relative text-4xl font-semibold text-white uppercase drop-shadow-xl lg:text-5xl">
@@ -296,7 +301,7 @@ export function Carousel({ slides }: CarouselProps) {
       >
         {slides.map((slide, index) => (
           <Slide
-            key={index}
+            key={slide.title}
             slide={slide}
             index={index}
             current={current}

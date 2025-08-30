@@ -48,7 +48,7 @@ export default function Home() {
     >
       <h1
         id="loading-heading"
-        className="hero-heading absolute top-[95vh] left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 !text-2xl"
+        className="hero-heading absolute top-[10vh] left-1/2 z-10 -translate-x-1/2 -translate-y-1/2 !text-2xl whitespace-nowrap sm:top-[95vh]"
       >
         Guilherme Guerreiro
       </h1>
