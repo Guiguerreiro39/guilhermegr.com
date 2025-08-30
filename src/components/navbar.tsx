@@ -93,7 +93,7 @@ const NavBar = () => {
           <div className="flex size-full items-center justify-between p-4">
             {/* Logo and Product button */}
             <div className="flex items-center gap-7">
-              <Image width={20} height={20} src="vercel.svg" alt="logo" />
+              <p className="font-headers text-background text-xl">GG</p>
             </div>
 
             {/* Navigation Links and Audio Button */}
